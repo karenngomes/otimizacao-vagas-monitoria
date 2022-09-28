@@ -1,2 +1,2 @@
 # otimizacao-vagas-monitoria
-Algoritmo que distribuirá-la, de forma justa e otimizada, as vagas do Programa de Monitoria
+Algoritmo que distribuirá, de forma justa e otimizada, as vagas de um Programa de Monitoria.
