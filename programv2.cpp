@@ -5,8 +5,10 @@ using namespace std;
 struct Criterio
 {
     string nome;
-    int peso;
+    int peso = 1;
     int valor; // ver se realmente precisa (melhor menor valor?)
+    bool isBinary = false;
+    bool isCriterioPositivo = false; // f(x) = 1 - x
 };
 
 struct Disciplina
@@ -16,37 +18,37 @@ struct Disciplina
     int maiorPesoCriterio = 0; // ver se realmente precisa
     /*  map<string, double, bool, bool> valores: nome, valor, isBoolean, isCriterioPositivo */
     map<string, double> valores;             // se for booleano, será 0 ou 1
-    map<string, double> valoresNormalizados; // se for booleano, será 0 ou 1
+    map<string, double> valoresNormalizados; // se for booleano, será 0 ou 1 // colocar em valores mesmo?
 };
-
-map<string, vector<double>> valoresNormalizadosTotais;
-
-bool ordena(Disciplina d1, Disciplina d2, string nomeCriterio)
-{
-    return (d1.valores[nomeCriterio] < d2.valores[nomeCriterio]);
-}
 
 vector<Disciplina> normalizar(Criterio c, vector<Disciplina> d)
 {
-    string nomeCriterio = c.nome; 
+    string nomeCriterio = c.nome;
     cout << "Tratando o criterio: " << nomeCriterio << endl;
+    if (c.isBinary) {
+    cout << "ta considerando binario" << endl;
+        return d;
+    }
+
     sort(d.begin(), d.end(), [&](Disciplina &d1, Disciplina &d2)
          { return (d1.valores[nomeCriterio] > d2.valores[nomeCriterio]); });
     /* só faz o sort se não for um booleano */
     // pegar maior valor daquela disciplina daquele criterio
     double max_value = d[0].valores[nomeCriterio];
     cout << "Maior valor(?): [" << max_value << "] " << endl;
+
     for (int i = 0; i < d.size(); i++)
     {
-        // pega o map valoresNormalizados: valores[nomeCriterio] / max_value
-        d[i].valoresNormalizados[nomeCriterio] = d[i].valores[nomeCriterio] / max_value;
+        d[i].valoresNormalizados[nomeCriterio] = 
+            (c.isCriterioPositivo ? 1 - d[i].valores[nomeCriterio] : d[i].valores[nomeCriterio]) / max_value;
     }
 
     for (auto x : d)
     {
-        cout << "Valor: [" << x.valores[nomeCriterio] << "] ";
-        cout << "Normalizado: [" << x.valoresNormalizados[nomeCriterio] << "] " << endl;
+        cout << "Valor: [" << x.valores[nomeCriterio] << "] da disciplina " << x.cod;
+        cout << " Normalizado: [" << x.valoresNormalizados[nomeCriterio] << "] " << endl;
     }
+
     return d;
 }
 
@@ -57,10 +59,9 @@ vector<Disciplina> pontuarDisciplinas(vector<Disciplina> d, vector<Criterio> c)
         d = normalizar(c[i], d);
         for (int j = 0; j < d.size(); j++)
         {
-            /* code */
             //*** calcula o score:
-            cout << "score antes " << d[j].score << " valor normalizado " << d[j].valoresNormalizados[c[i].nome] << endl;
-            d[j].score += c[i].peso * d[j].valoresNormalizados[c[i].nome];
+            cout << "score antes " << d[j].score << " da disciplina " << d[j].cod << " valor normalizado " << d[j].valoresNormalizados[c[i].nome] << endl;
+            d[j].score += c[i].peso * (c[i].isBinary ? 1 : d[j].valoresNormalizados[c[i].nome]);
             cout << "Score da disciplina " << d[j].cod << ": " << d[j].score << endl;
         }
     }
@@ -114,13 +115,12 @@ int main()
     sort(disciplinas.begin(), disciplinas.end(), [](Disciplina &d1, Disciplina &d2)
          { return (d1.score > d2.score); });
 
-    cout << "Ranking de disciplinas: " << endl;
+    cout << "\nRanking de disciplinas: " << endl;
 
     for (int i = 0; i < disciplinas.size(); i++)
     {
         cout << "Disciplina " << disciplinas[i].cod << " com " << disciplinas[i].score << " de score." << endl;
     }
-    
 
     cout << "\nFim do programa" << endl;
 
