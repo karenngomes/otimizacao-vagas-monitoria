@@ -1,0 +1,30 @@
+// Disciplina d1, d2, d3, d4, d5;
+    // d1.cod = "d1";
+    // d2.cod = "d2";
+    // d3.cod = "d3";
+    // d4.cod = "d4";
+    // d5.cod = "d5";
+
+    // d1.valores["numeroDeAlunos"] = 30;
+    // d2.valores["numeroDeAlunos"] = 40;
+    // d3.valores["numeroDeAlunos"] = 35;
+    // d4.valores["numeroDeAlunos"] = 38;
+    // d5.valores["numeroDeAlunos"] = 20;
+
+    // d1.valores["taxaDeDesistencia"] = 0.4;
+    // d2.valores["taxaDeDesistencia"] = 0.1;
+    // d3.valores["taxaDeDesistencia"] = 0.8;
+    // d4.valores["taxaDeDesistencia"] = 0.3;
+    // d5.valores["taxaDeDesistencia"] = 0.5;
+
+    // d1.valores["disciplinaObrigatoria"] = 0;
+    // d2.valores["disciplinaObrigatoria"] = 1;
+    // d3.valores["disciplinaObrigatoria"] = 1;
+    // d4.valores["disciplinaObrigatoria"] = 0;
+    // d5.valores["disciplinaObrigatoria"] = 0;
+
+    // disciplinas.push_back(d1);
+    // disciplinas.push_back(d2);
+    // disciplinas.push_back(d3);
+    // disciplinas.push_back(d4);
+    // disciplinas.push_back(d5);

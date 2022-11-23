@@ -61,7 +61,7 @@ vector<Disciplina> pontuarDisciplinas(vector<Disciplina> d, vector<Criterio> c)
         {
             //*** calcula o score:
             cout << "score antes " << d[j].score << " da disciplina " << d[j].cod << " valor normalizado " << d[j].valoresNormalizados[c[i].nome] << endl;
-            d[j].score += c[i].peso * (c[i].isBinary ? 1 : d[j].valoresNormalizados[c[i].nome]);
+            d[j].score += c[i].peso * d[j].valoresNormalizados[c[i].nome];
             cout << "Score da disciplina " << d[j].cod << ": " << d[j].score << endl;
         }
     }
