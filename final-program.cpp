@@ -23,14 +23,13 @@ struct Criteria
     string name;
     int weight = 1;
     // int valor; 
-    bool isPositiveCriteria = false; // f(x) = 1 - x
+    bool isNegativeCriterion = false; // f(x) = 1 - x
     vector<Discipline> rankingDisciplines;
 };
 
 vector<Discipline> normalize(Criteria c, vector<Discipline> d)
 {
     string nameCriterion = c.name;
-    cout << "Tratando o criteria: " << nameCriterion << endl;
 
     sort(d.begin(), d.end(), [&](Discipline &d1, Discipline &d2)
          { return (d1.values[nameCriterion] > d2.values[nameCriterion]); });
@@ -42,7 +41,7 @@ vector<Discipline> normalize(Criteria c, vector<Discipline> d)
     for (int i = 0; i < d.size(); i++)
     {
         d[i].normalizedValues[nameCriterion] =
-                (c.isPositiveCriteria ? 1 - d[i].values[nameCriterion] : d[i].values[nameCriterion]) / max_value;
+                (c.isNegativeCriterion ? 1 - d[i].values[nameCriterion] : d[i].values[nameCriterion]) / max_value;
         
     }
 
@@ -124,7 +123,7 @@ vector<Criteria> readCriteria()
                 if (i == 1)
                     criteriaAuxiliar.weight = atoi(criteria.c_str());
                 if (i == 2) 
-                    criteriaAuxiliar.isPositiveCriteria = convert_boolean(criteria.c_str());
+                    criteriaAuxiliar.isNegativeCriterion = convert_boolean(criteria.c_str());
 
                 i++;
             }
