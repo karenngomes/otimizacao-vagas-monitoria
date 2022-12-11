@@ -1,3 +1,0 @@
-numeroDeAlunos 2
-taxaDeDesistencia 3
-disciplinaObrigatoria 4
